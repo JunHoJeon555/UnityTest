@@ -18,11 +18,18 @@ public class Spawner : MonoBehaviour
     public float MaxY = 4;      //(최댓값)
     //WaitForSeconds wait;      //wait 선언
 
+
+    //게임내의 플레이어에 대한 참조
+    Player player = null;
+
     //시간 간격
     public float interval = 1.0f;
     private void Start()
     {
         //wait = new WaitForSeconds(interval); //게임 실행 도중에 interval이 변핮 않는다면 미리 만들어 두는것도 나쁘지않다.
+        
+        player = FindObjectOfType<Player>(); // 플레이어 미리 찾아 놓는다.
+        
         //시작할 때 Spawn 코루틴 시작
         StartCoroutine(Spawn());
         //Destroy(spawnPrefab , 4.0f);
@@ -45,6 +52,9 @@ public class Spawner : MonoBehaviour
             float r = Random.Range(MinY, MaxY); //Vector3가 아닌 Vector2이다. 2차원 좌표일 때 사용할 수 있는
                                                 //folat r에 Random Y값을 적용시킨다. //랜덤하게 높이 구함
             obj.transform.Translate(Vector3.up *r); //Vector3.up = (0,1,0);  //gameObject의 위치 변경 //적용
+            
+            Enemy enemy = obj.GetComponent<Enemy>(); //생성한 게임오브젝트에서 Enemy 컴포넌트 가져오기 
+            enemy.TargetPlayer = player;             //Enemy에 플레이어 설정
 
             yield return new WaitForSeconds(interval);  //wait;
 

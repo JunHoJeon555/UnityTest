@@ -124,6 +124,7 @@ MonoBehaviour:
   speed: 1
   amplitude: 1.74
   frequency: 1
+  score: 10
 --- !u!50 &638130752
 Rigidbody2D:
   serializedVersion: 4

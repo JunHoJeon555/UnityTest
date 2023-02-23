@@ -13,11 +13,35 @@ public class Enemy : MonoBehaviour
     public float amplitude = 1.0f; // 사인 결과 값을 증폭시킬 변수(위아래 차이 결정)
     public float frequency = 1.0f; //사인 그래프가 한번 도는 데 걸리는 시간
 
+    public int score = 10; //점수가 있는 적
+
+
+    //10씩 올라가는건데 
 
     // 시간 누적이 필요하다 
     float timeElapsed = 0.0f;
     //처음 등장위치변수 설정
     float baseY;
+
+    //살아있는지 여부를 나타네는 플래그(Flag), true면 살아있고 false면 죽음
+    bool isAlive = true;
+
+
+    //플레이러 참조
+    Player player = null;
+    //player에 처음 한번만 값을 설정 가능한 프로퍼티. 쓰기 전용.
+    public Player TargetPlayer
+    {
+        set
+        {
+            if (player == null)
+            {
+                player = value;
+            }
+        }
+    }
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,16 +61,39 @@ public class Enemy : MonoBehaviour
 
         transform.position = new Vector3(x, y, 0); //합쳐서 움직이는 코드
     }
+
+
     //collsion 충돌정보
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if(collision.gameObject.CompareTag("Bullet"))       //충돌 했을 때 실행
         {
-            Debug.Log($"적은 {collision.gameObject.name}"); //문구출력 
-            GameObject obj = Instantiate(Exploprefab);      // 오브젝트 생성하고 obj변수에 저장
-            obj.transform.position = transform.position;    // 적의 위치로 설정 
-            Destroy(gameObject);                            // 적삭제
+           // Debug.Log($"적은 {collision.gameObject.name}"); //문구출력 
+            Die();
+         
         }
+        
+    }
+
+    void Die()
+    {
+        //1.//GameObject Plyer = GameObject.Find("Player"); //이름 찾기 하지만 문자로 찾는다. 그러므로 
+        //2.//GameObject Plyer = GameObject.FindGameObjectWithTag("Player");    //태그로 찾기
+        //3.//Player player = FindObjectOfType<Player>();                       //타임으로 찾기
+        //ㄴ2,3번 둘 다 Scene 전체 다 찾아봐서 무겁다
+      
+        if(isAlive)
+        {
+        isAlive= false;
+        player.AddScore(score);
+        
+        GameObject obj = Instantiate(Exploprefab);      // 오브젝트 생성하고 obj변수에 저장
+        obj.transform.position = transform.position;    // 적의 위치로 설정 
+        Destroy(gameObject);                            // 적삭제
+
+        }
+        
         
     }
 

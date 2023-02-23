@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
         
         //transform.position += Time.deltaTime * speed * Vector3.right;
 
-        transform.position += Time.deltaTime * speed * transform.right; //transform위치기반변수? // position은 Vector3이고 
+        transform.position += Time.deltaTime * speed * transform.right; //transform위치 기반변수? // position은 Vector3이고 
        
         //local좌표와 world좌표
         //local좌표 : 각 오브젝트 별 기준으로 한 좌표계
@@ -42,14 +42,14 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))//만약 태그가 Enemy인 게임 오브젝트랑 부딪치면 실행
         {
             
-            Debug.Log($"총알이 {collision.gameObject.name}에 충돌 되었다");
+           // Debug.Log($"총알이 {collision.gameObject.name}에 충돌 되었다");
             GameObject obj = Instantiate(Hitprefab);                  
             obj.transform.position = collision.contacts[0].point;//collision.contacts[0].point;  //collision은 모든 충돌을 정보를 가지고 있다.
                                                                  //contacts[0]는 가장 먼저(0번째) 접촉한 곳//point좌표?
 
             // transform.position;
             //이거는Hit이팩트가 충돌했을 때 총알위치에서 나오게되는데
-            //위에있는 collision.contacts는 충돌한 지점에서 이팩트가 생성하게되는것이다. 
+            //위에있는 collision.contacts는 충돌한 지점에서 이팩트가 생성하게되는것이다.
 
             Destroy(gameObject);          
 
