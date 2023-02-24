@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Bullet : MonoBehaviour
-{   //총알 속도
+public class Bullet : PoolObject
+{
+
+   
+    //총알 속도
     public float speed = 10.0f;
     //명중 이팩트
     public GameObject Hitprefab;
     
     Transform HitTransform;
-    private void Start()
+
+    private void OnEnable()
     {
-        Destroy(gameObject, 5.0f ); // this 자기자신 Bullet스크립트를 뜻함 5초 뒤에 스크립트가 들어있는 게임오브젝트를 삭제해라
+        StopAllCoroutines();                    //모든 코루틴 정지
+        StartCoroutine(LifeOver(5.0f));
     }
 
     //매 프레임마다 계속 호출되는 함수()
@@ -49,17 +53,18 @@ public class Bullet : MonoBehaviour
 
             // transform.position;
             //이거는Hit이팩트가 충돌했을 때 총알위치에서 나오게되는데
-            //위에있는 collision.contacts는 충돌한 지점에서 이팩트가 생성하게되는것이다.
+            //위에있는 collision.cont   acts는 충돌한 지점에서 이팩트가 생성하게되는것이다.
 
-            Destroy(gameObject);          
-
+            // Destroy(gameObject);          
+            StartCoroutine(LifeOver(0));
             
 
         }
 
+       
 
     }
 
-
+  
 
 }

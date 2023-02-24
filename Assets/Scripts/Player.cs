@@ -7,22 +7,22 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
 
-    public float fireInterval = 0.5f;
-    public float speed = 10.0f;  
-    public GameObject Bullet;    //퍼블릭으로 게임오브젝트라는 변수 선언, Bullet이라는 변수 생성
+    public float fireInterval = 0.5f;          //총알 연사간격시간
+    public float speed = 10.0f;                //player 속도
+    public GameObject Bullet;                  //퍼블릭으로 게임오브젝트라는 변수 선언, Bullet이라는 변수 생성
 
-    Transform fireTransform;     // Transform변수 선언 fireTransform 변수 생성
-    private GameObject fireFlash;
+    Transform fireTransform;                   // Transform클래스 선언 fireTransform 변수 생성
+    private GameObject fireFlash;              // GameObject클래스 선언 fireFlash를 생성
 
 
-    Animator anim;
+    Animator anim;                             //
 
     //입력철용 InputAction
-    PlayerInputActions inputActions; 
-    Vector3 inputDir = Vector3.zero;
+    PlayerInputActions inputActions;           //PlayerInputActions 클래스 선언 inputActions 변수할당 
+    Vector3 inputDir = Vector3.zero;           //Vector3클래스에 inputDir 은 0,0,0 좌표를 얻었다.
 
     /// 연사용 코루틴을 저장할 변수
-    IEnumerator fireCoroutine;
+    IEnumerator fireCoroutine;                 
 
     //플레이어 점수
     int score = 0;

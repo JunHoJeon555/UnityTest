@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
-public class Enemy : MonoBehaviour
+public class Enemy : PoolObject
 {
     public GameObject Exploprefab; //이팩트
     
@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
 
     
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         baseY = transform.position.y; //월드 좌표
         //transform.localpsition.y 로컬좌표
@@ -85,12 +85,12 @@ public class Enemy : MonoBehaviour
       
         if(isAlive)
         {
-        isAlive= false;
-        player.AddScore(score);
+            isAlive = false;
+            player.AddScore(score);
         
-        GameObject obj = Instantiate(Exploprefab);      // 오브젝트 생성하고 obj변수에 저장
-        obj.transform.position = transform.position;    // 적의 위치로 설정 
-        Destroy(gameObject);                            // 적삭제
+            GameObject obj = Instantiate(Exploprefab);      // 오브젝트 생성하고 obj변수에 저장
+            obj.transform.position = transform.position;    // 적의 위치로 설정 
+            gameObject.SetActive(false);                            // 적삭제
 
         }
         

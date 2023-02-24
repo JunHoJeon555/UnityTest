@@ -5,7 +5,7 @@ using UnityEngine;
 
 //이 스크립트를 가지는 게임 오브젝트는 반드시 Animator를 가지게 되어있다.
 [RequireComponent(typeof(Animator))]
-public class Effect : MonoBehaviour
+public class Effect : PoolObject
 {
     Animator anim;
     private void Awake()
@@ -13,8 +13,11 @@ public class Effect : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        Destroy(gameObject, anim.GetCurrentAnimatorClipInfo(0)[0].clip.length); //0번레이어의 0번째 애니메이션 
+        StopAllCoroutines();
+        StartCoroutine(LifeOver(anim.GetCurrentAnimatorClipInfo(0)[0].clip.length));
+
+
     }
 }
