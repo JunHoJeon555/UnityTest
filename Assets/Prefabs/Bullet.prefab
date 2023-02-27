@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  Hitprefab: {fileID: 127845800455345667, guid: e52d0d4bccc37ad48ae4924de6dc6c41, type: 3}
+  hitPrefab: {fileID: 127845800455345667, guid: e52d0d4bccc37ad48ae4924de6dc6c41, type: 3}
 --- !u!50 &611494450
 Rigidbody2D:
   serializedVersion: 4

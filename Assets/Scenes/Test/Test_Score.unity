@@ -390,6 +390,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1003505129}
     - target: {fileID: 1103887183693184391, guid: 057e9133c8d66654db1d0a1383f1423a, type: 3}
+      propertyPath: bulletType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1103887183693184391, guid: 057e9133c8d66654db1d0a1383f1423a, type: 3}
       propertyPath: fireInterval
       value: 0.5
       objectReference: {fileID: 0}
@@ -477,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1584133957
 MonoBehaviour:
   m_ObjectHideFlags: 0
