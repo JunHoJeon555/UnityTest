@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9410a0db010eff346895b1346997d54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionType: 3
+  ExplosionType: 3
   speed: 1
   amplitude: 1.74
   frequency: 1

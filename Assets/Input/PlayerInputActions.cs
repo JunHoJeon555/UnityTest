@@ -229,6 +229,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test5"",
+                    ""type"": ""Button"",
+                    ""id"": ""646c7daf-8435-4b14-99c6-c9f8576530b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +284,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Test1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab3fafd8-e738-4731-915d-f02517e76e19"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Test5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -309,6 +329,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Test_Test2 = m_Test.FindAction("Test2", throwIfNotFound: true);
         m_Test_Test3 = m_Test.FindAction("Test3", throwIfNotFound: true);
         m_Test_Test4 = m_Test.FindAction("Test4", throwIfNotFound: true);
+        m_Test_Test5 = m_Test.FindAction("Test5", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -421,6 +442,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Test_Test2;
     private readonly InputAction m_Test_Test3;
     private readonly InputAction m_Test_Test4;
+    private readonly InputAction m_Test_Test5;
     public struct TestActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -429,6 +451,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Test2 => m_Wrapper.m_Test_Test2;
         public InputAction @Test3 => m_Wrapper.m_Test_Test3;
         public InputAction @Test4 => m_Wrapper.m_Test_Test4;
+        public InputAction @Test5 => m_Wrapper.m_Test_Test5;
         public InputActionMap Get() { return m_Wrapper.m_Test; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -450,6 +473,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Test4.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest4;
                 @Test4.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest4;
                 @Test4.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest4;
+                @Test5.started -= m_Wrapper.m_TestActionsCallbackInterface.OnTest5;
+                @Test5.performed -= m_Wrapper.m_TestActionsCallbackInterface.OnTest5;
+                @Test5.canceled -= m_Wrapper.m_TestActionsCallbackInterface.OnTest5;
             }
             m_Wrapper.m_TestActionsCallbackInterface = instance;
             if (instance != null)
@@ -466,6 +492,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Test4.started += instance.OnTest4;
                 @Test4.performed += instance.OnTest4;
                 @Test4.canceled += instance.OnTest4;
+                @Test5.started += instance.OnTest5;
+                @Test5.performed += instance.OnTest5;
+                @Test5.canceled += instance.OnTest5;
             }
         }
     }
@@ -491,5 +520,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnTest2(InputAction.CallbackContext context);
         void OnTest3(InputAction.CallbackContext context);
         void OnTest4(InputAction.CallbackContext context);
+        void OnTest5(InputAction.CallbackContext context);
     }
 }

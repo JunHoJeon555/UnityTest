@@ -18,7 +18,7 @@ public class Test_Singleton : Test_Base
     }
     protected override void Test2(InputAction.CallbackContext _)
     {
-        Factory.Inst.GetObject(PoolObjectType.Hit);
+        Factory.Inst.GetHitEffect();
     }
     protected override void Test3(InputAction.CallbackContext _)
     {
