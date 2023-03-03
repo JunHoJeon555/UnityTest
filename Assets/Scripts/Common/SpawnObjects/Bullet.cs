@@ -9,9 +9,12 @@ public class Bullet : PoolObject
     //총알 속도
     public float speed = 10.0f;
     //명중 이팩트 종류
-    public PoolObjectType hithitType;
+    public PoolObjectType hitType;
     //public GameObject hitPrefab;
+    
     Transform HitTransform;
+
+
 
     private void OnEnable()
     {
@@ -50,7 +53,7 @@ public class Bullet : PoolObject
             // Debug.Log($"총알이 {collision.gameObject.name}에 충돌 되었다");
             // GameObject obj = Factory.Inst.GetObject(Hitprefab);                  
 
-            GameObject obj = Factory.Inst.GetObject(hithitType);
+            GameObject obj = Factory.Inst.GetObject(hitType);
             //GameObject obj = Instantiate(hitPrefab);
             obj.transform.position = collision.contacts[0].point;//collision.contacts[0].point;  //collision은 모든 충돌을 정보를 가지고 있다.
                                                                  //contacts[0]는 가장 먼저(0번째) 접촉한 곳//point좌표?
@@ -61,8 +64,8 @@ public class Bullet : PoolObject
             //위에있는 collision.cont   acts는 충돌한 지점에서 이팩트가 생성하게되는것이다.
 
             // Destroy(gameObject);          
-            StartCoroutine(LifeOver(0));
-            
+            //StartCoroutine(LifeOver(0));
+            gameObject.SetActive(false);
 
         }
 

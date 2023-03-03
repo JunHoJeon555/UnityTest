@@ -28,8 +28,6 @@ public class ObjectPool<T> : MonoBehaviour where T : PoolObject
     //풀이 생성한 모든 오브젝트가 들어있는 배열
     T[] pool; //나중에는 2배로 늘어나면 새로 만들어서 그 변수를 넣어야한다.
 
-
-
     //사용 가능한 오브젝트들이 들어있는 큐
     Queue<T> readyQueue;  //Queue도 클래서여서 껍데기만 있는거임
     
@@ -59,12 +57,13 @@ public class ObjectPool<T> : MonoBehaviour where T : PoolObject
 
         for(int i = Start; i <end; i++)                                //start 부터 end까지 반복한다.
         {
+
             GameObject obj = Instantiate(originalPrefab,transform);    //프리팹 생성하고 풀의 자식으로 설정
             obj.gameObject.name = $"{originalPrefab.name}_{i}";        //이름 변경
             T comp = obj.GetComponent<T>();                            //컴포넌트 찾고(PoolObject 타입이다.)
             //리턴타입이 void이고 파라메터가 없는 람다함수를 onDisable에 등록
             //델리게이트가 실행되면 readyQueue.Enque
-            comp.onDisable += () => readyQueue.Enqueue(comp);     
+            comp.onDisable += () => readyQueue.Enqueue(comp);
             
             newArray[i] = comp;                                   //풀 배열에 넣기     
             obj.SetActive(false);                                 //비활성화해서 안보이게 만고 레디큐에도 추가하기
@@ -114,6 +113,7 @@ public class ObjectPool<T> : MonoBehaviour where T : PoolObject
     /// </summary>
     private void ExpandPool()
     {
+        Debug.LogWarning($"{this.gameObject.name} 풀 사이즈 증가");
         // 큐에 오브젝트가 없으면 풀을 두배로 늘린다.
         int newSize = poolSize * 2; //새 크기 설정
         T[] newPool = new T[newSize]; // 새 풀 설정

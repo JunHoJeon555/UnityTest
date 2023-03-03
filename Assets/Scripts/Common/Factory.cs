@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 //enum(이넘) type
-public enum PoolObjectType
+public enum PoolObjectType 
 {
     Bullet = 0,
     Hit,
     Enemy,
+    Asteroid,
+    AsteroidSmall,
     Explosion
 }
 public class Factory : Singleton<Factory> //모든 오브젝트 생성
@@ -19,6 +21,8 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
         EnemyPool enemyPool;
         ExplosionEffectPool explosionPool;
         HitEffectPool hitPool;
+        AsteroidPool asteroidPool;
+        AsteroidSmallPool asteroidSmallPool;
 
     protected override void PreInitialize()
     {
@@ -26,6 +30,8 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
         enemyPool = GetComponentInChildren<EnemyPool>();
         explosionPool = GetComponentInChildren<ExplosionEffectPool>();
         hitPool = GetComponentInChildren<HitEffectPool>();
+        asteroidPool= GetComponentInChildren<AsteroidPool>();
+        asteroidSmallPool = GetComponentInChildren <AsteroidSmallPool>();
     }
 
     protected override void Initialize()
@@ -34,6 +40,8 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
         enemyPool?.Initialize();
         explosionPool?.Initialize();
         hitPool?.Initialize();
+        asteroidPool?.Initialize();
+        asteroidSmallPool?.Initialize();
     }
 
     public GameObject GetObject(PoolObjectType type)
@@ -53,7 +61,12 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
             case PoolObjectType.Explosion:
                 result = GetExplosionEffect().gameObject;
                 break;
-
+            case PoolObjectType.Asteroid:
+                result = GetAsteroid().gameObject;
+                break;
+            case PoolObjectType.AsteroidSmall:
+                result = GetAsteroidSmall().gameObject;
+                break;
         }
        
         return result;
@@ -67,8 +80,12 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
     public Effect GetHitEffect() => hitPool?.GetObject();
     
     // Bullet풀에서 Bullet하나 꺼내는 함수
-    public Enemy GetEnemy() => enemyPool?.GetObject();
+    public Fighter GetEnemy() => enemyPool?.GetObject();
     
     // Bullet풀에서 Bullet하나 꺼내는 함수
     public Effect GetExplosionEffect() => explosionPool?.GetObject();
+
+    public Asteroid GetAsteroid() => asteroidPool?.GetObject();
+
+    public AsteroidBase GetAsteroidSmall() => asteroidSmallPool?.GetObject();
 }

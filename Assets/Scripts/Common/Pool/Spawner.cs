@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
 
 
     //게임내의 플레이어에 대한 참조
-    Player player = null;
+    protected Player player = null;
 
     //시간 간격
     public float interval = 1.0f;
@@ -40,48 +40,31 @@ public class Spawner : MonoBehaviour
     //IEnumertor : 열거자를 생성한다. // 검색
     //yield return;
     //오브젝트를 주기적으로 생성하는 코루틴
-    IEnumerator Spawn() 
+    virtual protected IEnumerator Spawn() 
     {
-            
-        
-        while (true)
-        {
-            //생성하고 생성한 오브젝트를 스포너의 자식으로 만들기
-            // GameObject obj = Instantiate(spawnPrefab, transform);            // 밑에 있는 코드를 ,transform
-            
-            GameObject obj = Factory.Inst.GetObject(PoolObjectType.Enemy);
-            //obj.transform.position += transform.position;   
-                                                                  //folat r에 Random Y값을 적용시킨다. //랜덤하게 높이 구함
-            Enemy enemy = obj.GetComponent<Enemy>();              //생성한 게임오브젝트에서 Enemy 컴포넌트 가져오기 
-            enemy.TargetPlayer = player;                          //Enemy에 플레이어 설정
 
-            enemy.transform.position = transform.position;
-            float r = Random.Range(MinY, MaxY);                   //Vector3가 아닌 Vector2이다. 2차원 좌표일 때 사용할 수 있는
-            
-            enemy.BaseY = transform.position.y + r;
-                     
-
-            yield return new WaitForSeconds(interval);            //인버털만큼 대기
-
-
-        }
+        yield return null;       //인버털만큼 대기
+     
     }
 
-    //secen 창에 개발용 정보를 그리는 함수
-    //private void OnDrawGizmos()
+    // secen 창에 개발용 정보를 그리는 함수
+    //protected virtual void OnDrawGizmos()
     //{
     //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(transform.position,
-    //                          new Vector3(1, Mathf.Abs(MaxY) + Mathf.Abs(MinY) + 2, 1))
+    //    // Gizmos.color = new Color(0, 1, 0); // rgb값으로 색상을 만들 수도 있다
+
+    //    // 스폰 영역을 큐브로 그리기
+    //    Gizmos.DrawWireCube(transform.position,
+    //            new Vector3(1, Mathf.Abs(MaxY) + Mathf.Abs(MinY) + 2, 1));
 
 
     //}
 
 
     //선택 안할 시 Scene에서 안보임.
-    private void OnDrawGizmosSelected() 
+    virtual protected void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
         //Gizmos.color = new Color(); // RGB로 내가 원하는 색도 정할 수 있다
 
         //스폰지점을 선으로 긋기

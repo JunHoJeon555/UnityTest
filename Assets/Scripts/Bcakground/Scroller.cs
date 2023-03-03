@@ -45,7 +45,6 @@ public class Scroller : MonoBehaviour
             if (slot.localPosition.x < 0)                         //슬롯이 부모위치보다 왼쪽으로 갔을 때
             {
                 MoveRightEnd(i);
-
             }
                 
         }
