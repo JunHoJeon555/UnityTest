@@ -105,8 +105,8 @@ public class EnemyBase : PoolObject
     //상속받은 클래스별로 따로 처리할 일들
     protected virtual void OnCrush()
     {
-      
-            
+        player?.AddScore(score);
+
     }
     
     

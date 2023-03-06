@@ -15,7 +15,7 @@ public class Effect : PoolObject
 
     private void OnEnable()
     {
-        transform.localScale = Vector3.zero;
+        
         StopAllCoroutines();
         StartCoroutine(LifeOver(anim.GetCurrentAnimatorClipInfo(0)[0].clip.length));
 

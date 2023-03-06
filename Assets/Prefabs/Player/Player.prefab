@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1986590087}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FireTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 1103887183693184388}
   - component: {fileID: 8734060870392189383}
   - component: {fileID: 1714898971170294549}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,8 +107,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1506183457
-  m_SortingLayer: 6
+  m_SortingLayerID: 764480959
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4f3ca6c2ba5724c4c90aee322cf79137, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa4e732531725184a98b32d45b53639b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireInterval: 0.5
+  fireInterval: 0.12
   speed: 10
   bulletType: 0
 --- !u!95 &1103887183693184388
@@ -247,6 +247,10 @@ PrefabInstance:
     - target: {fileID: 4751270485655920104, guid: b2edebc03a5c7634988f1048b2c4257e, type: 3}
       propertyPath: m_Name
       value: flash
+      objectReference: {fileID: 0}
+    - target: {fileID: 4751270485655920104, guid: b2edebc03a5c7634988f1048b2c4257e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2edebc03a5c7634988f1048b2c4257e, type: 3}

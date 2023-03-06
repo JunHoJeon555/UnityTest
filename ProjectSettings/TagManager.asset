@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bullet
   - Enemy
+  - Border
   layers:
   - Default
   - TransparentFX
@@ -13,12 +14,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - PowerUp
+  - Bullet
+  - Enemy
+  - Border
+  - Iteam
   - 
   - 
   - 
@@ -60,4 +61,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1506183457
+    locked: 0
+  - name: PowerUp
+    uniqueID: 607078885
     locked: 0

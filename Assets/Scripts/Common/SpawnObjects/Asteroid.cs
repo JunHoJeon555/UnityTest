@@ -18,6 +18,13 @@ public class Asteroid : AsteroidBase
     public float minLifeTime = 4.0f;
     public float maxLifeTime = 7.0f;
 
+    //크리티컬이 터질 확률
+    [Range(0f, 1f)] 
+    public float criticalChance = 0.5f;
+
+    //크리티컬이 터졌을 때 나놀 작은 운석 갯수
+    public int criticalSplitCount = 20;
+   
     /// <summary>
     /// 파괴 될 때 생성할 오브젝트이 갯수
     /// </summary>
@@ -26,6 +33,15 @@ public class Asteroid : AsteroidBase
     //자폭여부 표시
     bool isSelfCrush = false;
 
+    readonly WaitForSeconds OneSecond = new WaitForSeconds(1);  //readonlty는 동적으로 할당되는 함수에도 가능하다.
+    //찾아놓은 컴포넌트
+    Animator anim;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        anim = GetComponent<Animator>();
+    }
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -44,7 +60,9 @@ public class Asteroid : AsteroidBase
     /// <returns></returns>
     IEnumerator SelfCrush(float lifeTime)
     {
-        yield return new WaitForSeconds(lifeTime);
+        yield return new WaitForSeconds(lifeTime -1);
+        anim.SetTrigger("SelfCrush");
+        yield return OneSecond;
         isSelfCrush = true;
         Crush();
     }
@@ -54,9 +72,18 @@ public class Asteroid : AsteroidBase
     {
        if(!isSelfCrush)
         {
-            TargetPlayer?.AddScore(score); 
+            TargetPlayer?.AddScore(score);     //자폭이 아닐 때만 점수 추가
         }
+
+        float random = Random.Range(0.0f, 1.0f); //0~1 사이의 값을 받기(0이면 0%, 1%이면 100)
+        if(random < criticalChance)              // 정해진 확률 이하면  행
+        {
+            splitCount = criticalSplitCount;
+        }
+        else
+        {
         splitCount= Random.Range(3, 8); //3~7개 생성
+        }
 
         float angleGap = 360.0f / splitCount;               //작은 운석간의 사이각 계산 
         float seed = Random.Range(0.0f, 360.0f);            //처음 적용할 오차 랜덤으로 구하기

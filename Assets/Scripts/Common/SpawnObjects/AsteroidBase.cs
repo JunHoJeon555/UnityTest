@@ -59,13 +59,15 @@ public class AsteroidBase : EnemyBase
 
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     protected override void OnEnable()
     {
+        base.OnEnable();
+
         //랜덤으로 이동속도 결정
         moveSpeed = Random.Range(minMoveSpeed, maxMoveSpeed);
 

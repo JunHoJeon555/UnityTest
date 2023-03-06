@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     public float speed = 10.0f;                //player 속도
     public PoolObjectType bulletType;                  //퍼블릭으로 게임오브젝트라는 변수 선언, Bullet이라는 변수 생성
 
-    Transform fireTransform;                   // Transform클래스 선언 fireTransform 변수 생성
+                       // Transform클래스 선언 fireTransform 변수 생성
     private GameObject fireFlash;              // GameObject클래스 선언 fireFlash를 생성
 
-
+    private Rigidbody2D rigid;
     Animator anim;                             //
+    Transform fireTransform;
+
 
     //입력철용 InputAction
     PlayerInputActions inputActions;           //PlayerInputActions 클래스 선언 inputActions 변수할당 
@@ -66,6 +68,7 @@ public class Player : MonoBehaviour
     {
         anim = GetComponent<Animator>();        //GetComponent는 성능문제가 있기 때문에 한번 만 찾도록 코드를 짠다.
                                                 //Update함수에 절대 넣으면 안된다.
+        rigid = GetComponent<Rigidbody2D>();
         inputActions = new PlayerInputActions();
         fireTransform = transform.GetChild(0);  //fireTransform이라는 변수가 자식넘버가 0이다. 즉, 1번째 자식.
         fireFlash = transform.GetChild(1).gameObject;
@@ -117,21 +120,44 @@ public class Player : MonoBehaviour
     {
        // Debug.Log("Start");
     }
-
+     
     //매 프레임마다 계속 호출되는 함수()
-    void Update()
-    {
+    //void Update()
+    //{
 
-        //transform.position += Time.deltaTime *speed *inputDir; // 곱하기 4번 
-        transform.Translate(Time.deltaTime *speed *inputDir); 
-                                                               //초당 Speed의 속도로 inputDir방향으로 이동
-        //Time.deltaTime : 이전 프레임에서 현재 프레임까지의 시간
+    //    transform.position += Time.deltaTime *speed *inputDir; // 곱하기 4번 
+    //    transform.Translate(Time.deltaTime *speed *inputDir); 
+    //                                                           초당 Speed의 속도로 inputDir방향으로 이동
+    //    Time.deltaTime : 이전 프레임에서 현재 프레임까지의 시간
         
-        //30프레임 deltaTime = 1/30초 = 0.33
-        //120프레임 
+    //    30프레임 deltaTime = 1/30초 = 0.33
+    //    120프레임 
 
-        //inputDir(1,2,0) 
-        //inputDir *0.5;
+    //    inputDir(1,2,0) 
+    //    inputDir *0.5;
+
+    //    여기는 3번실행
+    //}
+
+    //여기는 1변 실행
+    private void FixedUpdate()
+    {
+        //항상 일정한 시간 간격으로 실행되는 업데이트
+        //물리 연산이 들어가는 
+        //Debug.Log(Time.fixedDeltaTime);
+        
+       //rigid.MovePosition(); // 특정 위치로 이동시키기 .
+                               // 움직일 때 물리적으로 막히면 거기서부터는 진행하지 안흐는다.
+                               // 관성이 없는 움직임을 시킬 때 유영
+
+
+        //rigid.AddForce();
+        //특정  방향을 힘을 가하는 것
+        //관성이 있다.
+        //움직일 때 물리적으로 막히면 거기서부터는 진행을 하지 않는다.
+
+        rigid.MovePosition(transform.position + Time.fixedDeltaTime * speed * inputDir);    
+            
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

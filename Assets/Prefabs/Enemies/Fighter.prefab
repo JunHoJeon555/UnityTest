@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2250113947983366669}
   - component: {fileID: 638130752}
   - component: {fileID: 638130753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fighter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -120,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9410a0db010eff346895b1346997d54b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoint: 3
-  MaxHitPoint: 3
+  hitPoint: 1
+  MaxHitPoint: 1
   moveSpeed: 1
   score: 10
-  destroyEffect: 4
+  destroyEffect: 5
   amplitude: 1.74
   frequency: 1
 --- !u!50 &638130752
