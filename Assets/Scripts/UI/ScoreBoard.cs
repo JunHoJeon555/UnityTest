@@ -12,7 +12,7 @@ public class ScoreBoard : MonoBehaviour
 
     float currentScore;
     int targetScore;
-    public float scoreSpeed = 10.0f;
+    public float minScoreSpeed = 50.0f;
     Player player;                                     //player를 지정해줌
 
     //이 게임 오브젝트가 생성완료 되었을 때 실행되는 함수// 
@@ -44,7 +44,9 @@ public class ScoreBoard : MonoBehaviour
     {                                                        //currentScore가 targerScore보다 작으면 
         if(currentScore < targetScore)
         {
-            currentScore += Time.deltaTime*scoreSpeed;                  //currentScore를 ㅊ당 1씩 증가한다.
+            //currebtScore를 점수 차이에 비례해서 증가시킨다.(최저 minScoreSpeed)
+            float speed = Mathf.Max((targetScore-currentScore)*5.0f, minScoreSpeed);
+            currentScore += Time.deltaTime*speed;                  //currentScore를 ㅊ당 1씩 증가한다.
             currentScore = Mathf.Min(currentScore, targetScore);        //currentScore의 최대치는 targetScore
             score.text = $"{ currentScore:f0}";              //UI에 출력할 때 소수점은 0개만 출력한다.(소수점 출력안함:f0)
         }

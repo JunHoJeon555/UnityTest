@@ -10,8 +10,9 @@ using UnityEngine.InputSystem.Composites;
 public class Spawner : MonoBehaviour
 {
     //생성할 게임 오브젝트 : 주체
-    public GameObject spawnPrefab;
-
+    // public GameObject spawnPrefab;
+    //생성할 오브젝트 타입
+    public PoolObjectType objectType;
 
     //생성할 위치
     public float MinY = -4;     //(최솟값)MinY 거의 사용 할 일이 없다.
@@ -35,6 +36,9 @@ public class Spawner : MonoBehaviour
         //Destroy(spawnPrefab , 4.0f);
     }
 
+
+
+
     //새로운 유니티 코드 
     //문자열하고 정수 비교는 안된다. 무조건 정수비교가 유리하다 그래서 숫자로 비교를 해야한다.
     //IEnumertor : 열거자를 생성한다. // 검색
@@ -42,10 +46,43 @@ public class Spawner : MonoBehaviour
     //오브젝트를 주기적으로 생성하는 코루틴
     virtual protected IEnumerator Spawn() 
     {
+        while(true)
+        {
+        
+            yield return new WaitForSeconds(interval);       //인버털만큼 대기
+        
+            GameObject obj = Factory.Inst.GetObject(objectType);
+            //obj.transform.position += transform.position;   
+            //folat r에 Random Y값을 적용시킨다. //랜덤하게 높이 구함
+           
+            EnemyBase enemy = obj.GetComponent<EnemyBase>();              //생성한 게임오브젝트에서 Enemy 컴포넌트 가져오기 
+            enemy.TargetPlayer = player;                                 //Enemy에 플레이어 설정
 
-        yield return null;       //인버털만큼 대기
+            enemy.transform.position = transform.position;
+
+            OnSpawn(enemy);
+
+
+
+        }
      
     }
+
+    protected virtual void OnSpawn(EnemyBase enemy)
+    {
+
+        float r = Random.Range(MinY, MaxY);             // 랜덤하게 적용할 기준 높이 구하고
+        enemy.transform.Translate(Vector3.up * r);      // 랜덤하게 높이 적용하기
+
+        //yield return wait;
+        
+
+    }
+
+
+
+
+
 
     // secen 창에 개발용 정보를 그리는 함수
     //protected virtual void OnDrawGizmos()

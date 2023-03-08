@@ -10,38 +10,46 @@ public enum PoolObjectType
     Bullet = 0,
     Hit,
     Enemy,
+    SpecialFighter,
     Asteroid,
     AsteroidSmall,
-    Explosion
+    Explosion,
+    PowerUp
 }
 public class Factory : Singleton<Factory> //모든 오브젝트 생성
 {
         //생성할 오브젝트의 풀들
         BulletPool bulletPool;
         EnemyPool enemyPool;
+        SpecialFighterPool specialFighterPool;
         ExplosionEffectPool explosionPool;
         HitEffectPool hitPool;
         AsteroidPool asteroidPool;
         AsteroidSmallPool asteroidSmallPool;
+        PowerUpPool powerUpPool;
 
     protected override void PreInitialize()
     {
         bulletPool = GetComponentInChildren<BulletPool>();
         enemyPool = GetComponentInChildren<EnemyPool>();
+        specialFighterPool = GetComponentInChildren<SpecialFighterPool>();
         explosionPool = GetComponentInChildren<ExplosionEffectPool>();
         hitPool = GetComponentInChildren<HitEffectPool>();
         asteroidPool= GetComponentInChildren<AsteroidPool>();
         asteroidSmallPool = GetComponentInChildren <AsteroidSmallPool>();
+        powerUpPool = GetComponentInChildren<PowerUpPool>();
     }
 
     protected override void Initialize()
     {
         bulletPool?.Initialize();       // ?.은 null이 아니면 실행, null이면 아무것도 하지 않는다.
         enemyPool?.Initialize();
+        specialFighterPool?.Initialize();
         explosionPool?.Initialize();
         hitPool?.Initialize();
         asteroidPool?.Initialize();
         asteroidSmallPool?.Initialize();
+        powerUpPool?.Initialize();
     }
 
     public GameObject GetObject(PoolObjectType type)
@@ -58,6 +66,9 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
             case PoolObjectType.Enemy:
                 result = GetEnemy().gameObject;
                 break;
+            case PoolObjectType.SpecialFighter:
+                result = GetSpecialFighter().gameObject;
+                break;
             case PoolObjectType.Explosion:
                 result = GetExplosionEffect().gameObject;
                 break;
@@ -67,6 +78,10 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
             case PoolObjectType.AsteroidSmall:
                 result = GetAsteroidSmall().gameObject;
                 break;
+            case PoolObjectType.PowerUp:
+                result = GetPowerUp().gameObject;
+                break;
+
         }
        
         return result;
@@ -81,6 +96,8 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
     
     // Bullet풀에서 Bullet하나 꺼내는 함수
     public Fighter GetEnemy() => enemyPool?.GetObject();
+
+    public SpecialFighter GetSpecialFighter() => specialFighterPool?.GetObject();
     
     // Bullet풀에서 Bullet하나 꺼내는 함수
     public Effect GetExplosionEffect() => explosionPool?.GetObject();
@@ -88,4 +105,6 @@ public class Factory : Singleton<Factory> //모든 오브젝트 생성
     public Asteroid GetAsteroid() => asteroidPool?.GetObject();
 
     public AsteroidBase GetAsteroidSmall() => asteroidSmallPool?.GetObject();
+
+    public PowerUp GetPowerUp() => powerUpPool?.GetObject();
 }

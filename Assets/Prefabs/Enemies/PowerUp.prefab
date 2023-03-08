@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb9f98821c64484faec78d9d3fb9200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moverSpeed: 0
+  moverSpeed: 2
   dirChangeInterval: 5
   timeOut: 15
 --- !u!95 &3492180702579852303

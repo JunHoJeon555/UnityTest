@@ -124,7 +124,7 @@ MonoBehaviour:
   MaxHitPoint: 1
   moveSpeed: 1
   score: 10
-  destroyEffect: 5
+  destroyEffect: 6
   amplitude: 1.74
   frequency: 1
 --- !u!50 &638130752
