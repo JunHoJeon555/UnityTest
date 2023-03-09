@@ -120,7 +120,7 @@ public class PowerUp : PoolObject
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (DirChangeCount > 0 && collision.gameObject.CompareTag("Border"))
+        if (DirChangeCount >0 &&    gameObject.CompareTag("Border"))
         {
             // 튕길 횟수가 남아있고 Border와 부딪쳤으면
             dir = Vector2.Reflect(dir, collision.contacts[0].normal); //보더에 부딪치면 방향전환하기 방향전환하기
