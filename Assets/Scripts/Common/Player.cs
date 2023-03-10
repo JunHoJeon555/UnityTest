@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     //player 속도
     public float speed = 10.0f;
 
+    // 피격 되었을 때의 무적 시간
     public float invincibleTime = 2.0f;
 
     //무적 상태인지 아닌지 
@@ -27,7 +28,12 @@ public class Player : MonoBehaviour
     private int life = 3;
     //사망
     private bool isDead = false;
-    
+
+    //플레이어 비행기 터지는 임펙트
+    public PoolObjectType explosion = PoolObjectType.Explosion;
+    //현재 파워
+    public int power = 0;
+
 
     private int Life
     {
@@ -42,8 +48,9 @@ public class Player : MonoBehaviour
                     OnHit();    //맞았을 때의 동작이 있는 함수 실행
                     
                 }
-                life= value; //value라는것은 프로퍼티에 넣은 값
-                if(life <= 0)
+                life= value;   //value라는것은 프로퍼티에 넣은 값
+                Debug.Log($"Life : {life}");
+                if (life <= 0)
                 {
                     
                     OnDie();    //죽었을 때의 동작이 있는 함수 실행
@@ -53,19 +60,22 @@ public class Player : MonoBehaviour
         }
     }
 
-   
 
+
+    // 수명이 변경되었을 때 실행될 델리게이트
     public Action<int> onLifeChange;
+
+    //죽었을 때 실행될 델리게이트
+    public Action onDie;
 
 
     //퍼블릭으로 게임오브젝트라는 변수 선언, Bullet이라는 변수 생성
     public PoolObjectType bulletType;
 
     //플레이어 점수
-    int score = 0;
+    private int score = 0;
 
-    //현재 파워
-    public int power = 0;
+    
     
 
     //파워가 최대치일 때 파워업 아잍메 먹으며ㅓㄴ 보너스
@@ -108,9 +118,9 @@ public class Player : MonoBehaviour
             power= value;
             if (power > 3) //3을 넘어가면 
             {
-                AddScore(extraPowerBonus); //보너스 추가
-                power = Mathf.Clamp(power, 1, 3); //1~3사이로 설정되게 Clmp처리
+                AddScore(extraPowerBonus); //보너스 추가               
             }
+            power = Mathf.Clamp(power, 1, 3); //1~3사이로 설정되게 Clmp처리
             RefreshFirePostions(power);         //FireTransform의 위치와 회전 처리 
         }
 
@@ -205,11 +215,7 @@ public class Player : MonoBehaviour
     //이겜임 오브젝트가 비활성화 될 때 실행되는 함수 
     private void OnDisable()
     {
-        inputActions.Player.Move.canceled -= OnMoveInput;
-        inputActions.Player.Move.performed -= OnMoveInput;
-        inputActions.Player.Fire.canceled -= OnFireStop;
-        inputActions.Player.Fire.performed -= OnFireStart;
-        inputActions.Player.Disable();
+        InputDisable();
         //inputActions.Player.Bomb.performed -= OnBomb;
     }
 
@@ -220,7 +226,7 @@ public class Player : MonoBehaviour
     {
         power = 1; //power는 1로 시작 
 
-        life = initialLife;
+        Life = initialLife;
        // Debug.Log("Start");
     }
 
@@ -275,8 +281,16 @@ public class Player : MonoBehaviour
         //특정  방향을 힘을 가하는 것
         //관성이 있다.
         //움직일 때 물리적으로 막히면 거기서부터는 진행을 하지 않는다.
+        if(isDead)
+        {
+            rigid.AddForce(Vector2.left* 0.3f, ForceMode2D.Impulse); //Impulse가 비워져있으면 점 채워야 애들이 잘 움직임
+            rigid.AddTorque(30.0f);
+        }
+        else
+        {
 
-        rigid.MovePosition(transform.position + Time.fixedDeltaTime * speed * inputDir);    
+            rigid.MovePosition(transform.position + Time.fixedDeltaTime * speed * inputDir);    
+        }
             
     }
 
@@ -342,6 +356,17 @@ public class Player : MonoBehaviour
         
     }
 
+    private void InputDisable()
+    {
+        inputActions.Player.Move.canceled -= OnMoveInput;
+        inputActions.Player.Move.performed -= OnMoveInput;
+        inputActions.Player.Fire.canceled -= OnFireStop;
+        inputActions.Player.Fire.performed -= OnFireStart;
+        inputActions.Player.Disable();
+        //inputActions.Player.Bomb.performed -= OnBomb;
+    }
+
+
     //맞았을 때 실행되는 함수
     private void OnHit()
     {
@@ -362,7 +387,6 @@ public class Player : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Player"); //레이어 되돌리기
 
 
-
     }
 
 
@@ -371,8 +395,32 @@ public class Player : MonoBehaviour
     {
         isDead= true;
         life = 0;
+
+        Collider2D bodyCollider = GetComponent<Collider2D>(); //
+        bodyCollider.enabled = false; //특정 콜라이더 비활성화 true = 활성화
+
+        GameObject effect = Factory.Inst.GetObject(explosion); // 이펙트 생성 변수 제작 
+        effect.transform.position = transform.position;     //이펙트 내 위치에 생성
+
+
+        InputDisable();             //  입력 막기
+        inputDir = Vector3.zero;
+        StartCoroutine(fireCoroutine); // 총을 쏘던 중이면 더 이상 쏘지 않게 만들기
+
+        //무적모드 취소
+        spriteRenderer.color = Color.white;             //색이 변한 상태에서 무적모드가 끝날 때를 대비해서 색상도 초기화
+        isInvincibleMode = false;                       // 무적모드 끝났다고 표시
+        gameObject.layer = LayerMask.NameToLayer("Player"); //레이어 되돌리기
+
+        rigid.gravityScale = 1.0f;      // 중력 다시 적용
+        rigid.freezeRotation = false;   // 회전도 풀
+
+        onDie?.Invoke();
     }
 
+
+
+    //기타 함수--------------------------------------------------------------------
     //Score에 점수를 추가하는 함수
     //plus는 추가할 점수
     public void AddScore(int plus)

@@ -88,11 +88,9 @@ public class EnemyBase : PoolObject
         if (!isCrushed)
         {
             isCrushed = true;    //파괴되었다는 표시
+ 
+            OnCrush();//클래스별 별도 파괴 처리
 
-            player?.AddScore(score);    //클래스별 별도 파괴 처리
-
-            OnCrush();
-            
             GameObject obj = Factory.Inst.GetObject(destroyEffect);  //터지는 이팩트 생성
             obj.transform.position = transform.position;            //
 

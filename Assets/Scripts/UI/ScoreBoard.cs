@@ -7,10 +7,13 @@ using System.Transactions;
 
 public class ScoreBoard : MonoBehaviour
 {
-    //목표 점수 따로 현재 점수 따로 만약 현재 점수가 목표점수보다 작으면계속 증가!
+    //// 점수를 출력할 UI text
     TextMeshProUGUI score;
-
+  
+    // 현재 UI에서 보이는 점수
     float currentScore;
+
+    // 실제 플레이어가 가지고 있는 점수
     int targetScore;
     public float minScoreSpeed = 50.0f;
     Player player;                                     //player를 지정해줌
