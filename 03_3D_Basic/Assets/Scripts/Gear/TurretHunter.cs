@@ -21,12 +21,7 @@ public class TurretHunter : Turret
 
     //1초에 한바퀴 //회전속도
     public float turnSpeed = 360f;
-
-    //처음 바라보고 있는 방향
-    Vector3 initialForward;
-
-    //현재 터렛이 회전하는 정도
-    float currentAngle = 0f;
+ 
     /// <summary>
     /// 발사 중인지 아닌지 표시하는 변수. true면 발사 중, fasle 발사하지 않는 중이다.
     /// </summary>
@@ -54,8 +49,7 @@ public class TurretHunter : Turret
     {
         base.Start();
         sightTrigger.radius = sightRange;   // 시야 범위로 컬라이더 크기 변경
-        initialForward= transform.forward;
-        currentAngle = 0f;
+        
     }
 
     private void Update()
@@ -146,6 +140,16 @@ public class TurretHunter : Turret
 
             }
         }
+        else
+        {
+            if (isFiring)
+            {
+                StopCoroutine(fireCoroutine);
+                isFiring = false;
+            }
+        }
+    
+    
     }
 
     /// <summary>
@@ -191,6 +195,7 @@ public class TurretHunter : Turret
     //기즈모 line 2개로 사이각을 만들기
 
 
+
     /// <summary>
     /// 씬창에서 보이는 테스트용 정보 그리는 함수
     /// </summary>
@@ -202,41 +207,50 @@ public class TurretHunter : Turret
             barrelBodyTransform = transform.GetChild(2);    //없으면 찾아 놓기
         }
 
+        Gizmos.color = Color.yellow;                        //기본 색 노랑
         Vector3 from = barrelBodyTransform.position;        //시작 위치 설정
         Vector3 to;                                         //도착지점인 to를 선언을 해놓는다.
 
-        Gizmos.color = Color.yellow;                        //기본 색 노랑
+        bool isFire = false;
+ 
         //to는 barrelBodyTransform.position 위치에서
         //barrelBodyTramsform.forward 방향으로 sightRange만큼 위치
 
         
 
         Ray ray = new Ray(barrelBodyTransform.position, barrelBodyTransform.forward);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, sightRange))   //선이 충돌하는지 체크
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, sightRange, LayerMask.GetMask("Player","Wall")))   //선이 충돌하는지 체크
         {
+            
             //충돌한 위치
             to = hitInfo.point;                                 //충돌했으면 도착지점은 충돌한 이치
             Gizmos.color = Color.blue;                                  //충돌하면 파랑색으로 설정 
             Gizmos.DrawSphere(to, 0.1f);                                //충동한 지점을 파랑원으로 강조
+            isFire= true;
+            
             //Gizmos.DrawLine(from, to);                                //층돌한 라인 그리기
+            
         }
-
+            
         else
         {
+            // barrelBodyTransform.position 위치에서
+            // barrelBodyTransform.forward 방향으로 sightRange만큼 이동한 위치
 
             to = barrelBodyTransform.position + barrelBodyTransform.forward * sightRange;
             //Gizmos.DrawLine(from, to);
         }
         Gizmos.DrawLine(from, to);
 
-        //회전 *벡터로
-        //라인을 2개 만든다. 
-        Vector3 toA = barrelBodyTransform.position + barrelBodyTransform.forward* sightRange;
-        Vector3 toB;                              //to만 교체하면되고 회전값 곱하기
+        Vector3 dir1 = Quaternion.AngleAxis(-fireAngle, barrelBodyTransform.up) * barrelBodyTransform.forward;
+        Vector3 dir2 = Quaternion.AngleAxis(fireAngle, barrelBodyTransform.up)* barrelBodyTransform.forward;
+        
+        Gizmos.color = isFire ? Color.red : Color.green;
 
-
-        float ale = transform.
-       Gizmos.DrawLine(from , );
+        to = barrelBodyTransform.position + dir1 * sightRange;
+        Gizmos.DrawLine(from, to);
+        to = barrelBodyTransform.position + dir2 * sightRange;
+        Gizmos.DrawLine(from, to);
 
 
     }

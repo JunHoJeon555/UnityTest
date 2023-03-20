@@ -21,6 +21,7 @@ public class Bullet : PoolObject
     {
         //transform.rotation = Quaternion.identity; //xyz 0
         //transform.rotation = transform.parent.rotation;
+        rigid.angularVelocity = Vector3.zero;               //회전력은 전부 제거
         rigid.velocity = initialSpeed * transform.forward;  // 초기 운동량 결정
         StartCoroutine(LifeOver(10f)); //시작10초 뒤에 비활성화
     }
