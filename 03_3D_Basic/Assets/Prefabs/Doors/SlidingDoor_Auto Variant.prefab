@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7076157306191352334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088602, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132341915088605, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_Name
+      value: SlidingDoor_Auto
+      objectReference: {fileID: 0}
+    - target: {fileID: 2450132342245145323, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: afdf1b06cfa9c1e498ab69bfd83a68cb, type: 2}
+    - target: {fileID: 2626800526062827769, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655042969934008775, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 8ca234efad09ef5478f22b0b56c68670, type: 2}
+    - target: {fileID: 7463429310433026884, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463429310433026884, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+      propertyPath: m_VersionIndex
+      value: 776
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+--- !u!1 &4626060990614168787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2450132341915088605, guid: aaafb591d03d42f499cbf49dcf83ba40, type: 3}
+  m_PrefabInstance: {fileID: 7076157306191352334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &680849845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4626060990614168787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d8a2e90313c0a4db79f9ffe663c00f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
